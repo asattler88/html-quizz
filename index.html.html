@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Comprehensive Quiz Template</title>
+<style>
+  body {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background: white;
+    margin: 0;
+    padding: 20px;
+    color: #000000e2;
+  }
+  .quiz-container {
+    max-width: 900px;
+    margin: auto;
+    background: #0397b1bc;
+    border-radius: 16px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+  }
+  h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: white;
+  }
+  .question {
+    margin-bottom: 30px;
+    padding: 20px;
+    border-radius: 12px;
+    background-color: #f0f4f8;
+  }
+  label {
+    display: block;
+    margin: 8px 0;
+    padding: 10px;
+    border-radius: 8px;
+    background: #e2e8f0;
+    cursor: pointer;
+    user-select: none;
+  }
+  input[type="radio"],
+  input[type="checkbox"] {
+    margin-right: 10px;
+  }
+  input[type="text"] {
+    width: 100%;
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    margin-top: 8px;
+    font-size: 1em;
+  }
+
+  /* Drag & Drop styles */
+  .dropzone {
+    min-height: 50px;
+    border: 2px dashed #aaa;
+    border-radius: 8px;
+    padding: 10px;
+    margin: 8px 0;
+    background: #fff;
+    user-select: none;
+  }
+  .draggable {
+    padding: 8px 12px;
+    background: #bee3f8;
+    margin: 5px;
+    border-radius: 8px;
+    cursor: grab;
+    user-select: none;
+    display: inline-block;
+  }
+
+  /* Connect columns */
+  .columns {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+  }
+  .column {
+    width: 45%;
+  }
+  .column ul {
+    list-style: none;
+    padding: 0;
+  }
+  .column li {
+    padding: 8px 12px;
+    background: #edf2f7;
+    border-radius: 8px;
+    margin: 5px 0;
+    cursor: grab;
+    user-select: none;
+  }
+
+  /* Sequence ordering */
+  #sequenceList {
+    list-style: none;
+    padding: 0;
+    user-select: none;
+    max-width: 300px;
+    margin-top: 10px;
+  }
+  #sequenceList li {
+    padding: 10px 15px;
+    margin: 6px 0;
+    background-color: #e2e8f0;
+    border-radius: 8px;
+    cursor: grab;
+  }
+  #sequenceList li.dragging {
+    opacity: 0.5;
+  }
+
+  /* Image question */
+  .image {
+    max-width: 100%;
+    border-radius: 12px;
+    margin-bottom: 15px;
+    border: 2px solid #ddd;
+justify-content: center;  }
+
+  /* Correct / Incorrect Styles */
+  .correct {
+    background-color: #c6f6d5 !important;
+    border-left: 4px solid #38a169;
+  }
+  .incorrect {
+    background-color: #fed7d7 !important;
+    border-left: 4px solid #e53e3e;
+  }
+  .correct-answer {
+    font-size: 0.9em;
+    color: #2d3748;
+    margin-top: 5px;
+    font-style: italic;
+  }
+  .btn {
+    display: block;
+    width: 200px;
+    margin: 30px auto 0;
+    padding: 12px 20px;
+    background-color: #3182ce;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 1em;
+    cursor: pointer;
+  }
+  .btn:hover {
+    background-color: #2b6cb0;
+  }
+  .classification-item {
+  margin: 10px 0;
+  padding: 10px;
+  background-color: #edf2f7;
+  border-radius: 8px;
+}
+.classification-item select.correct {
+  border: 2px solid #38a169;
+  background-color: #c6f6d5;
+}
+.classification-item select.incorrect {
+  border: 2px solid #e53e3e;
+  background-color: #fed7d7;
+}
+</style>
+</head>
+<body>
+
+<div class="quiz-container">
+  <h2>Comprehensive Quiz</h2>
+
+  <!-- True / False -->
+  <div class="question" data-type="truefalse" data-answer="true">
+    <p>1. The Earth is flat.</p>
+    <label><input type="radio" name="q1" value="true" />True</label>
+    <label><input type="radio" name="q1" value="false" />False</label>
+  </div>
+
+  <!-- Multiple Choice -->
+  <div class="question" data-type="multiplechoice" data-answer="b">
+    <p>2. What is the capital of France?</p>
+    <label><input type="radio" name="q2" value="a" />London</label>
+    <label><input type="radio" name="q2" value="b" />Paris</label>
+    <label><input type="radio" name="q2" value="c" />Berlin</label>
+  </div>
+
+  <!-- Short Answer -->
+  <div class="question" data-type="shortanswer" data-answer="Water">
+    <p>3. What is H2O commonly called?</p>
+    <input type="text" id="q3" />
+  </div>
+
+  <!-- Matching (Drag & Drop) -->
+  <div class="question" data-type="dragdrop">
+    <p>4. Mit szimbolizálnak a magyar címer részei ?</p>
+    <img class="image" src="./assets/Shield.jpg"/>
+    <div class="dropzone" data-answer="reményt" ondragover="allowDrop(event)" ondrop="dropToDropzone(event)" id="dropzone-zöld szín">zöld szín</div>
+    <div class="dropzone" data-answer="Tátra, Fátra, Mátra" ondragover="allowDrop(event)" ondrop="dropToDropzone(event)" id="dropzone-dombok/ harmas hálom">dombok/ harmas hálom</div>
+    <div class="dropzone" data-answer="Duna, Tisza, Dráva, Száva" ondragover="allowDrop(event)" ondrop="dropToDropzone(event)" id="dropzone-sávok">sávok</div>
+    <div class="dropzone" data-answer="erőt" ondragover="allowDrop(event)" ondrop="dropToDropzone(event)" id="dropzone-piros szín">piros szín</div>
+    <div class="dropzone" data-answer="hűséget" ondragover="allowDrop(event)" ondrop="dropToDropzone(event)" id="dropzone-fehér szín">fehér szín</div>
+    <div class="dropzone" data-answer="hatalom, királyság" ondragover="allowDrop(event)" ondrop="dropToDropzone(event)" id="dropzone-korona">korona</div>
+    <div class="dropzone" data-answer="kereszténység" ondragover="allowDrop(event)" ondrop="dropToDropzone(event)" id="dropzone-kereszt">kereszt</div>
+
+
+    <div style="margin-top:10px;">
+     <div class="draggable" draggable="true" ondragstart="drag(event)" id="hűséget">hűséget</div>
+     <div class="draggable" draggable="true" ondragstart="drag(event)" id="reményt">reményt</div>
+     <div class="draggable" draggable="true" ondragstart="drag(event)" id="kereszténység">kereszténység</div>
+     <div class="draggable" draggable="true" ondragstart="drag(event)" id="Tátra, Fátra, Mátra">Tátra, Fátra, Mátra</div>
+     <div class="draggable" draggable="true" ondragstart="drag(event)" id="Duna, Tisza, Dráva, Száva">Duna, Tisza, Dráva, Száva</div>
+     <div class="draggable" draggable="true" ondragstart="drag(event)" id="hatalom, királyság">hatalom, királyság</div>
+     <div class="draggable" draggable="true" ondragstart="drag(event)" id="erőt">erőt</div>
+    </div>
+  </div>
+
+  <!-- Connect Columns -->
+  <div class="question" data-type="columnmatch">
+    <p>5. Mit szimbolizálnak a magyar címer részei?</p>
+     <img class="image" src="./assets/Shield.jpg"/>
+    <div class="columns">
+      <div class="column" id="shield">
+        <ul>
+          <li draggable="true" ondragstart="drag(event)" id="reményt">zöld szín</li>
+          <li draggable="true" ondragstart="drag(event)" id="Tátra, Fátra, Mátra">dombok/ harmas hálom</li>
+          <li draggable="true" ondragstart="drag(event)" id="Duna, Tisza, Dráva, Száva">sávok</li>
+          <li draggable="true" ondragstart="drag(event)" id="erőt">piros szín</li>
+          <li draggable="true" ondragstart="drag(event)" id="hűséget">fehér szín</li>
+          <li draggable="true" ondragstart="drag(event)" id="hatalom, királyság">korona</li>
+          <li draggable="true" ondragstart="drag(event)" id="kereszténység">kereszt</li>
+        </ul>
+      </div>
+      <div class="column" id="meaning">
+        <ul>
+          <li class="dropzone" data-answer="Duna, Tisza, Dráva, Száva" ondragover="allowDrop(event)" ondrop="dropToDropzone(event)" id="drop-Duna, Tisza, Dráva, Száva">Duna, Tisza, Dráva, Száva</li>
+          <li class="dropzone" data-answer="hűséget" ondragover="allowDrop(event)" ondrop="dropToDropzone(event)" id="drop-hűséget">hűséget</li>
+          <li class="dropzone" data-answer="reményt" ondragover="allowDrop(event)" ondrop="dropToDropzone(event)" id="drop-reményt">reményt</li>
+          <li class="dropzone" data-answer="erőt" ondragover="allowDrop(event)" ondrop="dropToDropzone(event)" id="drop-erőt">erőt</li>
+          <li class="dropzone" data-answer="kereszténység" ondragover="allowDrop(event)" ondrop="dropToDropzone(event)" id="drop-kereszténység">kereszténység</li>
+          <li class="dropzone" data-answer="Tátra, Fátra, Mátra" ondragover="allowDrop(event)" ondrop="dropToDropzone(event)" id="drop-Tátra, Fátra, Mátra">Tátra, Fátra, Mátra</li>
+          <li class="dropzone" data-answer="hatalom, királyság" ondragover="allowDrop(event)" ondrop="dropToDropzone(event)" id="drop-hatalom, királyság">hatalom, királyság</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sequence Ordering -->
+  <div class="question" data-type="sequence" data-answer="First,Second,Third,Fourth">
+    <p>6. Put these numbers in order:</p>
+    <ul id="sequenceList">
+      <li draggable="true">Third</li>
+      <li draggable="true">First</li>
+      <li draggable="true">Fourth</li>
+      <li draggable="true">Second</li>
+    </ul>
+    <div id="sequence-feedback"></div>
+  </div>
+
+  <!-- Image Question -->
+  <div class="question image-question" data-type="image" data-answer="Országalma,Korona,Jogar,Kard">
+    <p>7. Mik vannak a képen? Több jó válasz van!</p>
+    <img class="image" src="./assets/KORONA.JPG"/>
+    <label><input type="checkbox" name="q7" value="Sun" />Országalma</label>
+    <label><input type="checkbox" name="q7" value="Moon" />Címer</label>
+    <label><input type="checkbox" name="q7" value="Stars" />Kard</label>
+    <label><input type="checkbox" name="q7" value="Stars" />Zászló</label>
+    <label><input type="checkbox" name="q7" value="Stars" />Korona</label>
+    <label><input type="checkbox" name="q7" value="Stars" />Jogar</label>
+    <label><input type="checkbox" name="q7" value="Stars" />Palást</label>
+  </div>
+ <!-- Category Classification: Hymn vs. Song -->
+<div class="question" data-type="categorize">
+  <p>8. Mi kapcsolódik a Himnuszhoz? Ami nem a <strong>Himnuszhoz</strong> kapcsolódik, az a <strong>Szózathoz</strong>:</p>
+(H= Himnusz; S = Szózat)
+ or a 
+  <div class="classification-group">
+    <div class="classification-item" data-answer="S">
+      <span>az ünnep végén énekeljük</span>
+      <select>
+        <option value="">--Select--</option>
+        <option value="S">S</option>
+        <option value="H">H</option>
+      </select>
+    </div>
+    <div class="classification-item" data-answer="S">
+      <span>Vörösmarty Mihály írta</span>
+      <select>
+        <option value="">--Select--</option>
+        <option value="S">S</option>
+        <option value="H">H</option>
+      </select>
+    </div>
+    <div class="classification-item" data-answer="H">
+      <span>áldást kér a magyaroknak, akikkel sok rossz történt a múltban</span>
+      <select>
+        <option value="">--Select--</option>
+        <option value="S">S</option>
+        <option value="H">H</option>
+      </select>
+    </div>
+    <div class="classification-item" data-answer="H">
+      <span>Kölcsey Ferenc írta</span>
+      <select>
+        <option value="">--Select--</option>
+        <option value="S">S</option>
+        <option value="H">H</option>
+      </select>
+    </div>
+    <div class="classification-item" data-answer="H">
+      <span>az ünnep elején énekeljük</span>
+      <select>
+        <option value="">--Select--</option>
+        <option value="S">S</option>
+        <option value="H">H</option>
+      </select>
+    </div>
+    <div class="classification-item" data-answer="H">
+      <span>az Istenhez szól</span>
+      <select>
+        <option value="">--Select--</option>
+        <option value="S">S</option>
+        <option value="H">H</option>
+      </select>
+    </div>
+    <div class="classification-item" data-answer="S">
+      <span>Egressy Béni szerezte a zenéjét</span>
+      <select>
+        <option value="">--Select--</option>
+        <option value="S">S</option>
+        <option value="H">H</option>
+      </select>
+    </div>
+    <div class="classification-item" data-answer="S">
+      <span>Magyarország a hazánk, itt születtünk, itt is kell meghalnunk</span>
+      <select>
+        <option value="">--Select--</option>
+        <option value="S">S</option>
+        <option value="H">H</option>
+      </select>
+    </div>
+    <div class="classification-item" data-answer="H">
+      <span>Erkel Ferenc szerezte a zenéjét</span>
+      <select>
+        <option value="">--Select--</option>
+        <option value="S">S</option>
+        <option value="H">H</option>
+      </select>
+    </div>
+    <div class="classification-item" data-answer="S">
+      <span>a magyarokhoz szól</span>
+      <select>
+        <option value="">--Select--</option>
+        <option value="S">S</option>
+        <option value="H">H</option>
+      </select>
+    </div>
+    <!-- Add more affirmations below (total 10) -->
+  </div>
+</div>
+
+
+
+  <button class="btn" onclick="checkAnswers()">Submit</button>
+</div>
+
+<script>
+  // Drag & Drop logic for dragdrop and connect columns:
+  let draggedId = null;
+
+  function drag(ev) {
+    draggedId = ev.target.id;
+    ev.dataTransfer.setData("text/plain", draggedId);
+    ev.dataTransfer.effectAllowed = "move";
+  }
+
+  function allowDrop(ev) {
+    ev.preventDefault();
+  }
+
+  function dropToDropzone(ev) {
+    ev.preventDefault();
+    const draggedId = ev.dataTransfer.getData("text/plain");
+    const draggedEl = document.getElementById(draggedId);
+    const dropzone = ev.currentTarget;
+
+    // Prevent multiple draggables in one dropzone
+    if (!dropzone.querySelector(".draggable")) {
+      dropzone.appendChild(draggedEl);
+    }
+  }
+
+  // Sequence ordering drag & drop handlers
+  const sequenceList = document.getElementById("sequenceList");
+  let dragSrcEl = null;
+
+  function handleDragStart(e) {
+    dragSrcEl = this;
+    this.classList.add("dragging");
+    e.dataTransfer.effectAllowed = "move";
+    e.dataTransfer.setData("text/html", this.innerHTML);
+  }
+  function handleDragOver(e) {
+    if (e.preventDefault) {
+      e.preventDefault();
+    }
+    e.dataTransfer.dropEffect = "move";
+    return false;
+  }
+  function handleDragEnter() {
+    this.classList.add("over");
+  }
+  function handleDragLeave() {
+    this.classList.remove("over");
+  }
+  function handleDrop(e) {
+    if (e.stopPropagation) {
+      e.stopPropagation();
+    }
+    if (dragSrcEl !== this) {
+      let temp = this.innerHTML;
+      this.innerHTML = dragSrcEl.innerHTML;
+      dragSrcEl.innerHTML = temp;
+    }
+    return false;
+  }
+  function handleDragEnd() {
+    this.classList.remove("dragging");
+    sequenceList.querySelectorAll("li").forEach(item => item.classList.remove("over"));
+  }
+
+  function addDnDHandlers() {
+    const items = sequenceList.querySelectorAll("li");
+    items.forEach(function (item) {
+      item.addEventListener("dragstart", handleDragStart, false);
+      item.addEventListener("dragenter", handleDragEnter, false);
+      item.addEventListener("dragover", handleDragOver, false);
+      item.addEventListener("dragleave", handleDragLeave, false);
+      item.addEventListener("drop", handleDrop, false);
+      item.addEventListener("dragend", handleDragEnd, false);
+    });
+  }
+
+  addDnDHandlers();
+
+  // Check answers & color code
+  function checkAnswers() {
+    // True/False
+    document.querySelectorAll(".question[data-type='truefalse']").forEach((q, idx) => {
+      const correct = q.dataset.answer.toLowerCase();
+      const selected = q.querySelector('input[type="radio"]:checked');
+      q.querySelectorAll("label").forEach(l => l.classList.remove("correct", "incorrect"));
+      if (!selected) return; // No answer
+      const isCorrect = selected.value.toLowerCase() === correct;
+      selected.parentElement.classList.add(isCorrect ? "correct" : "incorrect");
+      if (!isCorrect) {
+        let ca = document.createElement("div");
+        ca.className = "correct-answer";
+        ca.textContent = `Correct answer: ${correct.charAt(0).toUpperCase() + correct.slice(1)}`;
+        q.appendChild(ca);
+      }
+    });
+
+    // Multiple Choice
+    document.querySelectorAll(".question[data-type='multiplechoice']").forEach((q) => {
+      const correct = q.dataset.answer.toLowerCase();
+      const selected = q.querySelector('input[type="radio"]:checked');
+      q.querySelectorAll("label").forEach(l => l.classList.remove("correct", "incorrect"));
+      if (!selected) return;
+      const isCorrect = selected.value.toLowerCase() === correct;
+      selected.parentElement.classList.add(isCorrect ? "correct" : "incorrect");
+      if (!isCorrect) {
+        let ca = document.createElement("div");
+        ca.className = "correct-answer";
+        // Find correct answer text
+        let correctLabel = [...q.querySelectorAll('input[type="radio"]')].find(i => i.value.toLowerCase() === correct);
+        if (correctLabel) {
+          ca.textContent = `Correct answer: ${correctLabel.parentElement.textContent.trim()}`;
+        } else {
+          ca.textContent = `Correct answer: ${correct}`;
+        }
+        q.appendChild(ca);
+      }
+    });
+
+    // Short Answer
+    document.querySelectorAll(".question[data-type='shortanswer']").forEach((q) => {
+      const correct = q.dataset.answer.toLowerCase().trim();
+      const input = q.querySelector("input[type='text']");
+      input.classList.remove("correct", "incorrect");
+      if (!input.value.trim()) return;
+      const isCorrect = input.value.trim().toLowerCase() === correct;
+      input.classList.add(isCorrect ? "correct" : "incorrect");
+      if (!isCorrect) {
+        let ca = document.createElement("div");
+        ca.className = "correct-answer";
+        ca.textContent = `Correct answer: ${q.dataset.answer}`;
+        q.appendChild(ca);
+      }
+    });
+
+    // Drag & Drop Matching
+    const dragDropQ = document.querySelector(".question[data-type='dragdrop']");
+    if (dragDropQ) {
+      const dropzones = dragDropQ.querySelectorAll(".dropzone");
+      dropzones.forEach((dz) => {
+        const correct = dz.dataset.answer;
+        const dropped = dz.querySelector(".draggable");
+        if (dropped && dropped.id === correct) {
+          dropped.classList.add("correct");
+        } else if (dropped) {
+          dropped.classList.add("incorrect");
+          let ca = document.createElement("div");
+          ca.className = "correct-answer";
+          ca.textContent = `Correct: ${correct}`;
+          dz.appendChild(ca);
+        } else {
+          dz.style.borderColor = "#e53e3e";
+        }
+      });
+    }
+
+    // Connect Columns
+    const colQ = document.querySelector(".question[data-type='columnmatch']");
+    if (colQ) {
+      const dropzonesCol = colQ.querySelectorAll(".dropzone");
+      dropzonesCol.forEach((dz) => {
+        const correct = dz.dataset.answer;
+        const dropped = dz.querySelector("li");
+        if (dropped && dropped.id === correct) {
+          dropped.classList.add("correct");
+        } else if (dropped) {
+          dropped.classList.add("incorrect");
+          let ca = document.createElement("div");
+          ca.className = "correct-answer";
+          ca.textContent = `Correct: ${document.getElementById(correct)?.textContent || correct}`;
+          dz.appendChild(ca);
+        } else {
+          dz.style.borderColor = "#e53e3e";
+        }
+      });
+    }
+
+    // Sequence Ordering
+    const sequenceQ = document.querySelector(".question[data-type='sequence']");
+    if (sequenceQ) {
+      const correctOrder = sequenceQ.dataset.answer.split(",").map(s => s.trim());
+      const userOrder = Array.from(sequenceList.children).map(li => li.textContent.trim());
+      let allCorrect = true;
+      for (let i = 0; i < correctOrder.length; i++) {
+        if (userOrder[i] === correctOrder[i]) {
+          sequenceList.children[i].classList.add("correct");
+          sequenceList.children[i].classList.remove("incorrect");
+        } else {
+          allCorrect = false;
+          sequenceList.children[i].classList.add("incorrect");
+          sequenceList.children[i].classList.remove("correct");
+        }
+      }
+      const feedback = document.getElementById("sequence-feedback");
+      if (!allCorrect) {
+        feedback.innerHTML = "<strong>Correct order:</strong> " + correctOrder.join(", ");
+      } else {
+        feedback.innerHTML = "<strong>Correct!</strong>";
+      }
+    }
+
+    // Image question (checkbox)
+    document.querySelectorAll(".question[data-type='image']").forEach(q => {
+      const corrects = q.dataset.answer.split(",").map(s => s.trim());
+      const checkedBoxes = [...q.querySelectorAll("input[type='checkbox']:checked")].map(i => i.value);
+      q.querySelectorAll("label").forEach(label => label.classList.remove("correct", "incorrect"));
+      // Mark each label correct/incorrect individually
+      q.querySelectorAll("input[type='checkbox']").forEach(input => {
+        const label = input.parentElement;
+        if (input.checked) {
+          if (corrects.includes(input.value)) {
+            label.classList.add("correct");
+          } else {
+            label.classList.add("incorrect");
+          }
+        }
+      });
+      // Show correct answers
+      let ca = document.createElement("div");
+      ca.className = "correct-answer";
+      ca.textContent = `Correct answers: ${corrects.join(", ")}`;
+      q.appendChild(ca);
+    });
+    // Category Classification
+document.querySelectorAll(".question[data-type='categorize']").forEach(q => {
+  q.querySelectorAll(".classification-item").forEach(item => {
+    const correct = item.dataset.answer;
+    const select = item.querySelector("select");
+    select.classList.remove("correct", "incorrect");
+    if (select.value === correct) {
+      select.classList.add("correct");
+    } else {
+      select.classList.add("incorrect");
+      const ca = document.createElement("div");
+      ca.className = "correct-answer";
+      ca.textContent = `Correct: ${correct}`;
+      if (!item.querySelector(".correct-answer")) {
+        item.appendChild(ca);
+      }
+    }
+  });
+});
+
+    // Disable submit button after checking
+    document.querySelector(".btn").disabled = true;
+  }
+</script>
+
+</body>
+</html>
