@@ -176,28 +176,36 @@ justify-content: center;  }
 
   <!-- True / False -->
   <div class="question" data-type="truefalse" data-answer="true">
-    <p>1. The Earth is flat.</p>
+    <p>1. Árpád vezetésével a hét magyar törzs a IX. század végén a Vereckei-hágón keresztül foglalta el a Kárpát-medencét, ahol a magyarság letelepedett.</p>
+     <img class="image" src="./assets/Verecke-1068x709.jpg"/>
     <label><input type="radio" name="q1" value="true" />True</label>
     <label><input type="radio" name="q1" value="false" />False</label>
   </div>
 
   <!-- Multiple Choice -->
   <div class="question" data-type="multiplechoice" data-answer="b">
-    <p>2. What is the capital of France?</p>
-    <label><input type="radio" name="q2" value="a" />London</label>
-    <label><input type="radio" name="q2" value="b" />Paris</label>
-    <label><input type="radio" name="q2" value="c" />Berlin</label>
+    <p>2. Az alábbi városok közül melyek voltak egykori magyar koronázóvárosok?</p>
+    <label><input type="radio" name="q2" value="a" />Balaton, Debrecen, Pozsony, Sopron, Székesfehérvár</label>
+    <label><input type="radio" name="q2" value="b" />Buda, Esztergom, Pozsony, Sopron, Székesfehérvár</label>
+    <label><input type="radio" name="q2" value="c" />Buda, Esztergom, Pécs, Sopron, Százhalombatta</label>
   </div>
 
   <!-- Short Answer -->
-  <div class="question" data-type="shortanswer" data-answer="Water">
-    <p>3. What is H2O commonly called?</p>
+  <div class="question" data-type="shortanswer" data-answer="Isten, áldd meg a magyart
+Jó kedvvel, bőséggel,
+Nyújts feléje védő kart,
+Ha küzd ellenséggel;
+Bal sors akit régen tép,
+Hozz rá víg esztendőt,
+Megbűnhődte már e nép
+A múltat s jövendőt!">
+    <p>3. Írd le a magyar himnusz első négy versszakát!</p>
     <input type="text" id="q3" />
   </div>
 
   <!-- Matching (Drag & Drop) -->
   <div class="question" data-type="dragdrop">
-    <p>4. Mit szimbolizálnak a magyar címer részei ?</p>
+    <p>4. Mit szimbolizálnak a magyar címer részei és a magyar zászló színei?</p>
     <img class="image" src="./assets/Shield.jpg"/>
     <div class="dropzone" data-answer="reményt" ondragover="allowDrop(event)" ondrop="dropToDropzone(event)" id="dropzone-zöld szín">zöld szín</div>
     <div class="dropzone" data-answer="Tátra, Fátra, Mátra" ondragover="allowDrop(event)" ondrop="dropToDropzone(event)" id="dropzone-dombok/ harmas hálom">dombok/ harmas hálom</div>
@@ -220,143 +228,232 @@ justify-content: center;  }
   </div>
 
   <!-- Connect Columns -->
-  <div class="question" data-type="columnmatch">
-    <p>5. Mit szimbolizálnak a magyar címer részei?</p>
-     <img class="image" src="./assets/Shield.jpg"/>
-    <div class="columns">
-      <div class="column" id="shield">
-        <ul>
-          <li draggable="true" ondragstart="drag(event)" id="reményt">zöld szín</li>
-          <li draggable="true" ondragstart="drag(event)" id="Tátra, Fátra, Mátra">dombok/ harmas hálom</li>
-          <li draggable="true" ondragstart="drag(event)" id="Duna, Tisza, Dráva, Száva">sávok</li>
-          <li draggable="true" ondragstart="drag(event)" id="erőt">piros szín</li>
-          <li draggable="true" ondragstart="drag(event)" id="hűséget">fehér szín</li>
-          <li draggable="true" ondragstart="drag(event)" id="hatalom, királyság">korona</li>
-          <li draggable="true" ondragstart="drag(event)" id="kereszténység">kereszt</li>
-        </ul>
-      </div>
-      <div class="column" id="meaning">
-        <ul>
-          <li class="dropzone" data-answer="Duna, Tisza, Dráva, Száva" ondragover="allowDrop(event)" ondrop="dropToDropzone(event)" id="drop-Duna, Tisza, Dráva, Száva">Duna, Tisza, Dráva, Száva</li>
-          <li class="dropzone" data-answer="hűséget" ondragover="allowDrop(event)" ondrop="dropToDropzone(event)" id="drop-hűséget">hűséget</li>
-          <li class="dropzone" data-answer="reményt" ondragover="allowDrop(event)" ondrop="dropToDropzone(event)" id="drop-reményt">reményt</li>
-          <li class="dropzone" data-answer="erőt" ondragover="allowDrop(event)" ondrop="dropToDropzone(event)" id="drop-erőt">erőt</li>
-          <li class="dropzone" data-answer="kereszténység" ondragover="allowDrop(event)" ondrop="dropToDropzone(event)" id="drop-kereszténység">kereszténység</li>
-          <li class="dropzone" data-answer="Tátra, Fátra, Mátra" ondragover="allowDrop(event)" ondrop="dropToDropzone(event)" id="drop-Tátra, Fátra, Mátra">Tátra, Fátra, Mátra</li>
-          <li class="dropzone" data-answer="hatalom, királyság" ondragover="allowDrop(event)" ondrop="dropToDropzone(event)" id="drop-hatalom, királyság">hatalom, királyság</li>
-        </ul>
-      </div>
+   <!-- Category Classification: Hymn vs. Song -->
+<div class="question" data-type="categorize">
+  <p>5. Válaszd ki, melyik állítás vonatkozik Szent Istvánra, és melyik Mátyás királyra! <strong>Szózathoz</strong>:</p>
+ or a 
+  <div class="classification-group">
+    <div class="classification-item" data-answer="Szent István">
+      <span>az első magyar király</span>
+      <select>
+        <option value="">--Select--</option>
+        <option value="Szent István">Szent István</option>
+        <option value="Mátyás király">Mátyás király</option>
+      </select>
     </div>
-  </div>
+    <div class="classification-item" data-answer="Mátyás király">
+      <span>az igazságos király</span>
+      <select>
+        <option value="">--Select--</option>
+        <option value="Szent István">Szent István</option>
+        <option value="Mátyás király">Mátyás király</option>
+      </select>
+    </div>
+    <div class="classification-item" data-answer="Szent István">
+      <span>997-1038</span>
+      <select>
+        <option value="">--Select--</option>
+        <option value="Szent István">Szent István</option>
+        <option value="Mátyás király">Mátyás király</option>
+      </select>
+    </div>
+    <div class="classification-item" data-answer="Mátyás király">
+      <span>nagy könyvtár</span>
+      <select>
+        <option value="">--Select--</option>
+        <option value="Szent István">Szent István</option>
+        <option value="Mátyás király">Mátyás király</option>
+      </select>
+    </div>
+    <div class="classification-item" data-answer="Szent István">
+      <span>10.000 Ft-oson</span>
+      <select>
+        <option value="">--Select--</option>
+        <option value="Szent István">Szent István</option>
+        <option value="Mátyás király">Mátyás király</option>
+      </select>
+    </div>
+    <div class="classification-item" data-answer="Mátyás király">
+      <span>sok mese</span>
+      <select>
+        <option value="">--Select--</option>
+        <option value="Szent István">Szent István</option>
+        <option value="Mátyás király">Mátyás király</option>
+      </select>
+    </div>
+    <div class="classification-item" data-answer="Szent István">
+      <span>Szent Jobb</span>
+      <select>
+        <option value="">--Select--</option>
+        <option value="Szent István">Szent István</option>
+        <option value="Mátyás király">Mátyás király</option>
+      </select>
+    </div>
+    <div class="classification-item" data-answer="Mátyás király">
+      <span>1458-1490</span>
+      <select>
+        <option value="">--Select--</option>
+        <option value="Szent István">Szent István</option>
+        <option value="Mátyás király">Mátyás király</option>
+      </select>
+    </div>
+    <div class="classification-item" data-answer="Mátyás király">
+      <span>reneszánsz udvar</span>
+      <select>
+        <option value="">--Select--</option>
+        <option value="Szent István">Szent István</option>
+        <option value="Mátyás király">Mátyás király</option>
+      </select>
+    </div>
+    <div class="classification-item" data-answer="Mátyás király">
+      <span>1000 Ft-oson</span>
+      <select>
+        <option value="">--Select--</option>
+        <option value="Szent István">Szent István</option>
+        <option value="Mátyás király">Mátyás király</option>
+      </select>
+    </div>
+    <div class="classification-item" data-answer="Szent István">
+      <span>korona a pápától</span>
+      <select>
+        <option value="">--Select--</option>
+        <option value="Szent István">Szent István</option>
+        <option value="Mátyás király">Mátyás király</option>
+      </select>
+    </div>
+    <div class="classification-item" data-answer="Mátyás király">
+      <span>holló = corvin</span>
+      <select>
+        <option value="">--Select--</option>
+        <option value="Szent István">Szent István</option>
+        <option value="Mátyás király">Mátyás király</option>
+      </select>
+    </div>
+    <div class="classification-item" data-answer="Szent István">
+      <span>harc a pogány magyarokkal</span>
+      <select>
+        <option value="">--Select--</option>
+        <option value="Szent István">Szent István</option>
+        <option value="Mátyás király">Mátyás király</option>
+      </select>
+    </div>
+    <div class="classification-item" data-answer="Szent István">
+      <span>államalapítás</span>
+      <select>
+        <option value="">--Select--</option>
+        <option value="Szent István">Szent István</option>
+        <option value="Mátyás király">Mátyás király</option>
+      </select>
+    </div>
 
   <!-- Sequence Ordering -->
-  <div class="question" data-type="sequence" data-answer="First,Second,Third,Fourth">
-    <p>6. Put these numbers in order:</p>
+  <div class="question" data-type="sequence" data-answer="Honfoglalás,Államalapítás,Március 15.forradalom,Október 23.forradalom és a köztársaság kikiáltása">
+    <p>6. Tedd időrendi sorrendbe az alábbi magyar nemzeti ünnepeket / történelmi eseményeket!</p>
     <ul id="sequenceList">
-      <li draggable="true">Third</li>
-      <li draggable="true">First</li>
-      <li draggable="true">Fourth</li>
-      <li draggable="true">Second</li>
+      <li draggable="true">Március 15.forradalom</li>
+      <li draggable="true">Október 23.forradalom és a köztársaság kikiáltása</li>
+      <li draggable="true">Államalapítás</li>
+      <li draggable="true">Honfoglalás</li>
     </ul>
     <div id="sequence-feedback"></div>
   </div>
+  
 
   <!-- Image Question -->
   <div class="question image-question" data-type="image" data-answer="Országalma,Korona,Jogar,Kard">
     <p>7. Mik vannak a képen? Több jó válasz van!</p>
     <img class="image" src="./assets/KORONA.JPG"/>
-    <label><input type="checkbox" name="q7" value="Sun" />Országalma</label>
-    <label><input type="checkbox" name="q7" value="Moon" />Címer</label>
-    <label><input type="checkbox" name="q7" value="Stars" />Kard</label>
-    <label><input type="checkbox" name="q7" value="Stars" />Zászló</label>
-    <label><input type="checkbox" name="q7" value="Stars" />Korona</label>
-    <label><input type="checkbox" name="q7" value="Stars" />Jogar</label>
-    <label><input type="checkbox" name="q7" value="Stars" />Palást</label>
+    <label><input type="checkbox" name="q7" value="Országalma" />Országalma</label>
+    <label><input type="checkbox" name="q7" value="Címer" />Címer</label>
+    <label><input type="checkbox" name="q7" value="Kard" />Kard</label>
+    <label><input type="checkbox" name="q7" value="Zászló" />Zászló</label>
+    <label><input type="checkbox" name="q7" value="Korona" />Korona</label>
+    <label><input type="checkbox" name="q7" value="Jogar" />Jogar</label>
+    <label><input type="checkbox" name="q7" value="Palást" />Palást</label>
   </div>
  <!-- Category Classification: Hymn vs. Song -->
 <div class="question" data-type="categorize">
   <p>8. Mi kapcsolódik a Himnuszhoz? Ami nem a <strong>Himnuszhoz</strong> kapcsolódik, az a <strong>Szózathoz</strong>:</p>
-(H= Himnusz; S = Szózat)
  or a 
   <div class="classification-group">
-    <div class="classification-item" data-answer="S">
+    <div class="classification-item" data-answer="Szózat">
       <span>az ünnep végén énekeljük</span>
       <select>
         <option value="">--Select--</option>
-        <option value="S">S</option>
-        <option value="H">H</option>
+        <option value="Szózat">Szózat</option>
+        <option value="Himnusz">Himnusz</option>
       </select>
     </div>
-    <div class="classification-item" data-answer="S">
+    <div class="classification-item" data-answer="Szózat">
       <span>Vörösmarty Mihály írta</span>
       <select>
         <option value="">--Select--</option>
-        <option value="S">S</option>
-        <option value="H">H</option>
+        <option value="Szózat">Szózat</option>
+        <option value="Himnusz">Himnusz</option>
       </select>
     </div>
-    <div class="classification-item" data-answer="H">
+    <div class="classification-item" data-answer="Himnusz">
       <span>áldást kér a magyaroknak, akikkel sok rossz történt a múltban</span>
       <select>
         <option value="">--Select--</option>
-        <option value="S">S</option>
-        <option value="H">H</option>
+        <option value="Szózat">Szózat</option>
+        <option value="Himnusz">Himnusz</option>
       </select>
     </div>
-    <div class="classification-item" data-answer="H">
+    <div class="classification-item" data-answer="Himnusz">
       <span>Kölcsey Ferenc írta</span>
       <select>
         <option value="">--Select--</option>
-        <option value="S">S</option>
-        <option value="H">H</option>
+        <option value="Szózat">Szózat</option>
+        <option value="Himnusz">Himnusz</option>
       </select>
     </div>
-    <div class="classification-item" data-answer="H">
+    <div class="classification-item" data-answer="Himnusz">
       <span>az ünnep elején énekeljük</span>
       <select>
         <option value="">--Select--</option>
-        <option value="S">S</option>
-        <option value="H">H</option>
+        <option value="Szózat">Szózat</option>
+        <option value="Himnusz">Himnusz</option>
       </select>
     </div>
-    <div class="classification-item" data-answer="H">
+    <div class="classification-item" data-answer="Himnusz">
       <span>az Istenhez szól</span>
       <select>
         <option value="">--Select--</option>
-        <option value="S">S</option>
-        <option value="H">H</option>
+        <option value="Szózat">Szózat</option>
+        <option value="Himnusz">Himnusz</option>
       </select>
     </div>
-    <div class="classification-item" data-answer="S">
+    <div class="classification-item" data-answer="Szózat">
       <span>Egressy Béni szerezte a zenéjét</span>
       <select>
         <option value="">--Select--</option>
-        <option value="S">S</option>
-        <option value="H">H</option>
+        <option value="Szózat">Szózat</option>
+        <option value="Himnusz">Himnusz</option>
       </select>
     </div>
-    <div class="classification-item" data-answer="S">
+    <div class="classification-item" data-answer="Szózat">
       <span>Magyarország a hazánk, itt születtünk, itt is kell meghalnunk</span>
       <select>
         <option value="">--Select--</option>
-        <option value="S">S</option>
-        <option value="H">H</option>
+        <option value="Szózat">Szózat</option>
+        <option value="Himnusz">Himnusz</option>
       </select>
     </div>
-    <div class="classification-item" data-answer="H">
+    <div class="classification-item" data-answer="Himnusz">
       <span>Erkel Ferenc szerezte a zenéjét</span>
       <select>
         <option value="">--Select--</option>
-        <option value="S">S</option>
-        <option value="H">H</option>
+        <option value="Szózat">Szózat</option>
+        <option value="Himnusz">Himnusz</option>
       </select>
     </div>
-    <div class="classification-item" data-answer="S">
+    <div class="classification-item" data-answer="Szózat">
       <span>a magyarokhoz szól</span>
       <select>
         <option value="">--Select--</option>
-        <option value="S">S</option>
-        <option value="H">H</option>
+        <option value="Szózat">Szózat</option>
+        <option value="Himnusz">Himnusz</option>
       </select>
     </div>
     <!-- Add more affirmations below (total 10) -->
